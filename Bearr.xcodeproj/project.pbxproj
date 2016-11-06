@@ -14,6 +14,7 @@
 		A0AB4F521DCDF9D600E320E5 /* BearrTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AB4F511DCDF9D600E320E5 /* BearrTests.swift */; };
 		A0AB4F5D1DCDF9D600E320E5 /* BearrUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AB4F5C1DCDF9D600E320E5 /* BearrUITests.swift */; };
 		A0AB4F6D1DCDFB4600E320E5 /* TriangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AB4F6C1DCDFB4600E320E5 /* TriangleView.swift */; };
+		A0B373E71DCF311D0057EC3B /* Navigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B373E61DCF311D0057EC3B /* Navigator.swift */; };
 		A0C3C2FC1DCE032300AECD79 /* CGExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C3C2FB1DCE032300AECD79 /* CGExtensions.swift */; };
 		B4D1BB7D3FFF1344544D9F47 /* Pods_Bearr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74934CC95C08C9F47B9D3025 /* Pods_Bearr.framework */; };
 /* End PBXBuildFile section */
@@ -51,6 +52,7 @@
 		A0AB4F5C1DCDF9D600E320E5 /* BearrUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BearrUITests.swift; sourceTree = "<group>"; };
 		A0AB4F5E1DCDF9D700E320E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A0AB4F6C1DCDFB4600E320E5 /* TriangleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TriangleView.swift; sourceTree = "<group>"; };
+		A0B373E61DCF311D0057EC3B /* Navigator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Navigator.swift; sourceTree = "<group>"; };
 		A0C3C2FB1DCE032300AECD79 /* CGExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGExtensions.swift; sourceTree = "<group>"; };
 		B533859C8AF3977EA74746D4 /* Pods-Bearr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bearr.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Bearr/Pods-Bearr.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -155,6 +157,7 @@
 				A0AB4F3E1DCDF9D600E320E5 /* ViewController.swift */,
 				A0AB4F6C1DCDFB4600E320E5 /* TriangleView.swift */,
 				A0C3C2FB1DCE032300AECD79 /* CGExtensions.swift */,
+				A0B373E61DCF311D0057EC3B /* Navigator.swift */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -356,6 +359,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A0AB4F3F1DCDF9D600E320E5 /* ViewController.swift in Sources */,
+				A0B373E71DCF311D0057EC3B /* Navigator.swift in Sources */,
 				A0AB4F6D1DCDFB4600E320E5 /* TriangleView.swift in Sources */,
 				A0AB4F3D1DCDF9D600E320E5 /* AppDelegate.swift in Sources */,
 				A0C3C2FC1DCE032300AECD79 /* CGExtensions.swift in Sources */,
