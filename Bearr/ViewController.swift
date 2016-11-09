@@ -6,6 +6,13 @@ class ViewController: UIViewController {
 
     fileprivate lazy var pointerView = TriangleView(color: .blue)
     fileprivate lazy var northPointerView = TriangleView(color: .red)
+    fileprivate lazy var circleView: UIView = {
+        let view = UIView()
+        view.layer.borderWidth = 10
+        view.layer.cornerRadius = 100
+        view.layer.borderColor = UIColor.blue.cgColor
+        return view
+    }()
 
     fileprivate var layoutSubviews = true
 
@@ -15,6 +22,7 @@ class ViewController: UIViewController {
     override func loadView() {
         view = UIView()
         view.backgroundColor = .white
+        view.addSubview(circleView)
         view.addSubview(northPointerView)
         view.addSubview(pointerView)
 
@@ -30,12 +38,17 @@ class ViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         if layoutSubviews {
-            let width = min(view.bounds.width, view.bounds.height) * 0.25
+            let radius = CGFloat(100)
+            let width = CGFloat(60)
             let height = (width / 2) * sqrt(3)
-            let x = view.bounds.midX - (width / 2)
-            let y = view.bounds.midY - (height / 2)
-            pointerView.frame = CGRect(x: x, y: y, width: width, height: height)
-            northPointerView.frame = CGRect(x: x, y: y, width: width, height: height)
+
+            circleView.frame = CGRect(x: view.bounds.midX - radius, y: view.bounds.midY - radius, width: radius*2, height: radius*2)
+
+            northPointerView.frame = CGRect(x: 0, y: 0, width: width, height: height)
+            northPointerView.center = view.center
+
+            pointerView.bounds = CGRect(x: 0, y: 0, width: width, height: height)
+            pointerView.center = view.center
             layoutSubviews = false
         }
     }
@@ -51,10 +64,14 @@ class ViewController: UIViewController {
     }
 
     func updateNorthPointer(bearing: Double) {
-        northPointerView.transform = CGAffineTransform(rotationAngle: CGFloat(bearing.toRadians()))
+        northPointerView.transform = translate(bearing: bearing)
     }
 
     func updatePointer(bearing: Double) {
-        pointerView.transform = CGAffineTransform(rotationAngle: CGFloat(bearing.toRadians()))
+        pointerView.transform = translate(bearing: bearing)
+    }
+
+    func translate(bearing: Double) -> CGAffineTransform {
+        return CGAffineTransform.identity.rotated(by: CGFloat(bearing).toRadians())
     }
 }
