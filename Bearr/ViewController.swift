@@ -19,6 +19,10 @@ class ViewController: UIViewController {
     fileprivate let navigator = Navigator()
     fileprivate let disposeBag = DisposeBag()
 
+    fileprivate var radius: CGFloat = 100
+    fileprivate let width = CGFloat(60)
+    var height: CGFloat { return (width / 2) * sqrt(3) }
+
     override func loadView() {
         view = UIView()
         view.backgroundColor = .white
@@ -38,10 +42,6 @@ class ViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         if layoutSubviews {
-            let radius = CGFloat(100)
-            let width = CGFloat(60)
-            let height = (width / 2) * sqrt(3)
-
             circleView.frame = CGRect(x: view.bounds.midX - radius, y: view.bounds.midY - radius, width: radius*2, height: radius*2)
 
             northPointerView.frame = CGRect(x: 0, y: 0, width: width, height: height)
@@ -65,6 +65,11 @@ class ViewController: UIViewController {
 
     func updateNorthPointer(bearing: Double) {
         northPointerView.transform = translate(bearing: bearing)
+        let bearing = CGFloat(bearing - 90).toRadians()
+        let radius = self.radius + 10 + (height / 2)
+        let x = view.center.x + radius * cos(bearing)
+        let y = view.center.y + radius * sin(bearing)
+        northPointerView.center = CGPoint(x: x, y: y)
     }
 
     func updatePointer(bearing: Double) {
