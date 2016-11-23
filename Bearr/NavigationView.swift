@@ -14,6 +14,7 @@ class NavigationView: UIView {
 
     let pointerView = TriangleView(color: .neonBlue)
     let northPointerView = TriangleView(color: .white)
+
     lazy var northLabel: UILabel = {
         let label = UILabel()
         label.text = "N"
@@ -27,6 +28,7 @@ class NavigationView: UIView {
     }
 
     let northPointerSize = CGSize(width: 40, height: 20)
+    let span: CLLocationDegrees = 0.025
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -37,6 +39,7 @@ class NavigationView: UIView {
         circleView.addSubview(mapView)
         circleView.clipsToBounds = true
         backgroundColor = .darkBackground
+        mapView.showsUserLocation = true
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -51,12 +54,17 @@ class NavigationView: UIView {
 
         northPointerView.bounds = CGRect(x: 0, y: 0, width: northPointerSize.width, height: northPointerSize.height)
         northPointerView.center = CGPoint(x: 50, y: 50)
-        northLabel.bounds = CGRect(x: 0, y: 0, width: 100, height: 50)
+        northLabel.bounds = CGRect(x: 0, y: 0, width: 50, height: 50)
         northLabel.center = CGPoint(x: 50, y: 80)
 
         pointerView.bounds = CGRect(x: 0, y: 0, width: 60, height: 30)
         pointerView.center = center
         pointerView.layer.anchorPoint = CGPoint(x: 0.5, y: 1)
+    }
+
+    func updateLocation(_ location: CLLocationCoordinate2D) {
+        let region = MKCoordinateRegion(center: location, span: MKCoordinateSpan(latitudeDelta: span, longitudeDelta: span))
+        mapView.setRegion(region, animated: true)
     }
 
     func updatePointer(bearing: Double) {

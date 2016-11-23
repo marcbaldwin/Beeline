@@ -19,6 +19,12 @@ class ViewController: UIViewController {
         navigator.destinationHeading
             .subscribe(onNext: navigationView.updatePointer(bearing:))
             .addDisposableTo(disposeBag)
+
+        navigator.currentLocation
+            .filter { $0 != nil }
+            .map { $0! }
+            .subscribe(onNext: navigationView.updateLocation)
+            .addDisposableTo(disposeBag)
     }
 
     override func viewWillAppear(_ animated: Bool) {
