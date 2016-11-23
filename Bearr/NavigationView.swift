@@ -14,6 +14,13 @@ class NavigationView: UIView {
 
     let pointerView = TriangleView(color: .neonBlue)
     let northPointerView = TriangleView(color: .white)
+    lazy var northLabel: UILabel = {
+        let label = UILabel()
+        label.text = "N"
+        label.textAlignment = .center
+        label.textColor = .white
+        return label
+    }()
 
     var radius: CGFloat {
         return (min(bounds.width, bounds.height) / 2) - 40
@@ -23,6 +30,7 @@ class NavigationView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        addSubview(northLabel)
         addSubview(pointerView)
         addSubview(northPointerView)
         addSubview(circleView)
@@ -43,6 +51,8 @@ class NavigationView: UIView {
 
         northPointerView.bounds = CGRect(x: 0, y: 0, width: northPointerSize.width, height: northPointerSize.height)
         northPointerView.center = CGPoint(x: 50, y: 50)
+        northLabel.bounds = CGRect(x: 0, y: 0, width: 100, height: 50)
+        northLabel.center = CGPoint(x: 50, y: 80)
 
         pointerView.bounds = CGRect(x: 0, y: 0, width: 60, height: 30)
         pointerView.center = center
