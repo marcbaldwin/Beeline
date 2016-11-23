@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		A008DCD81DD399370032A43B /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A008DCD71DD399370032A43B /* UIColorExtensions.swift */; };
 		A008DCDA1DD39A450032A43B /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = A008DCD91DD39A450032A43B /* Styles.swift */; };
+		A013BA991DE64DCE00AF711D /* NavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A013BA981DE64DCE00AF711D /* NavigationView.swift */; };
 		A0AB4F3D1DCDF9D600E320E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AB4F3C1DCDF9D600E320E5 /* AppDelegate.swift */; };
 		A0AB4F3F1DCDF9D600E320E5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AB4F3E1DCDF9D600E320E5 /* ViewController.swift */; };
 		A0AB4F441DCDF9D600E320E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0AB4F431DCDF9D600E320E5 /* Assets.xcassets */; };
@@ -43,6 +44,7 @@
 		74934CC95C08C9F47B9D3025 /* Pods_Bearr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Bearr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A008DCD71DD399370032A43B /* UIColorExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
 		A008DCD91DD39A450032A43B /* Styles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Styles.swift; sourceTree = "<group>"; };
+		A013BA981DE64DCE00AF711D /* NavigationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationView.swift; sourceTree = "<group>"; };
 		A0AB4F391DCDF9D600E320E5 /* Bearr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bearr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0AB4F3C1DCDF9D600E320E5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A0AB4F3E1DCDF9D600E320E5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				A0AB4F6B1DCDFA2D00E320E5 /* Source */,
+				A008DCD61DD399270032A43B /* Extensions */,
 				A0AB4F6A1DCDFA1100E320E5 /* Resources */,
 			);
 			path = Bearr;
@@ -167,11 +170,11 @@
 			isa = PBXGroup;
 			children = (
 				A0AB4F3C1DCDF9D600E320E5 /* AppDelegate.swift */,
+				A013BA981DE64DCE00AF711D /* NavigationView.swift */,
 				A0B373E61DCF311D0057EC3B /* Navigator.swift */,
-				A0AB4F6C1DCDFB4600E320E5 /* TriangleView.swift */,
 				A008DCD91DD39A450032A43B /* Styles.swift */,
+				A0AB4F6C1DCDFB4600E320E5 /* TriangleView.swift */,
 				A0AB4F3E1DCDF9D600E320E5 /* ViewController.swift */,
-				A008DCD61DD399270032A43B /* Extensions */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -374,6 +377,7 @@
 			files = (
 				A0AB4F3F1DCDF9D600E320E5 /* ViewController.swift in Sources */,
 				A008DCDA1DD39A450032A43B /* Styles.swift in Sources */,
+				A013BA991DE64DCE00AF711D /* NavigationView.swift in Sources */,
 				A0B373E71DCF311D0057EC3B /* Navigator.swift in Sources */,
 				A0AB4F6D1DCDFB4600E320E5 /* TriangleView.swift in Sources */,
 				A008DCD81DD399370032A43B /* UIColorExtensions.swift in Sources */,

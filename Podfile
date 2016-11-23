@@ -3,7 +3,6 @@ use_frameworks!
 
 target 'Bearr' do
 
-  pod 'Alto', :path => '~/Dropbox/IOS Development/frameworks/Alto'
-  pod 'RxSwift', '~> 3.0.0-beta.2'
+  pod 'RxSwift', '~> 3.0.1'
 
 end

@@ -61,5 +61,5 @@ func bearing(fromLocation: CLLocation, toLocation: CLLocation) -> CLLocationDire
 
     let y = sin(toLon - fromLon) * cos(toLat)
     let x = cos(fromLat) * sin(toLat) - sin(fromLat) * cos(toLat) * cos(toLon - fromLon)
-    return atan2(y, x).toDegrees().truncatingRemainder(dividingBy: 360)
+    return abs( atan2(y, x).toDegrees().remainder(dividingBy: 360) )
 }
