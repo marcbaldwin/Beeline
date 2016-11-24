@@ -23,6 +23,14 @@ class NavigationView: UIView {
         return label
     }()
 
+    lazy var speedLabel: UILabel = {
+        let label = UILabel()
+        label.font = label.font.withSize(25)
+        label.textAlignment = .center
+        label.textColor = .white
+        return label
+    }()
+
     var radius: CGFloat {
         return (min(bounds.width, bounds.height) / 2) - 40
     }
@@ -33,6 +41,7 @@ class NavigationView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(northLabel)
+        addSubview(speedLabel)
         addSubview(pointerView)
         addSubview(northPointerView)
         addSubview(circleView)
@@ -60,6 +69,9 @@ class NavigationView: UIView {
         pointerView.bounds = CGRect(x: 0, y: 0, width: 60, height: 30)
         pointerView.center = center
         pointerView.layer.anchorPoint = CGPoint(x: 0.5, y: 1)
+
+        speedLabel.bounds = CGRect(x: 0, y: 0, width: 100, height: 100)
+        speedLabel.center = CGPoint(x: center.x, y: bounds.height - 50)
     }
 
     func updateLocation(_ location: CLLocationCoordinate2D) {

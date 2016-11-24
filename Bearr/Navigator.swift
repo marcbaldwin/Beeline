@@ -9,6 +9,7 @@ class Navigator: NSObject {
     let magneticHeading = BehaviorSubject<CLLocationDirection>(value: 0)
     let destinationHeading: Observable<CLLocationDirection>
     let currentLocation = BehaviorSubject<CLLocationCoordinate2D?>(value: nil)
+    let speed = BehaviorSubject<CLLocationSpeed>(value: 0)
 
     fileprivate var destination: CLLocation = CLLocation(latitude: 50.750142, longitude: -1.806269)
 
@@ -43,6 +44,7 @@ extension Navigator: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let currentLocation = locations.last {
             self.currentLocation.onNext(currentLocation.coordinate)
+            speed.onNext(currentLocation.speed)
             destinationBearing.onNext(bearing(fromLocation: currentLocation, toLocation: destination))
         }
     }

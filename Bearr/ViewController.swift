@@ -1,6 +1,7 @@
 import UIKit
 import CoreLocation
 import RxSwift
+import RxCocoa
 
 class ViewController: UIViewController {
 
@@ -24,6 +25,10 @@ class ViewController: UIViewController {
             .filter { $0 != nil }
             .map { $0! }
             .subscribe(onNext: navigationView.updateLocation)
+            .addDisposableTo(disposeBag)
+
+        navigator.speed.asObservable().map { max($0, 0) } .map { "\($0/1000) km/h" }
+            .bindTo(navigationView.speedLabel.rx.text)
             .addDisposableTo(disposeBag)
     }
 
