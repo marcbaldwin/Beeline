@@ -14,20 +14,18 @@ class ViewController: UIViewController {
         view = navigationView
 
         navigator.magneticHeading.asObservable()
-            .subscribe(onNext: navigationView.updateNorthPointer(bearing:))
+            .subscribe(onNext: navigationView.set(northHeading:))
             .addDisposableTo(disposeBag)
 
         navigator.destinationHeading
-            .subscribe(onNext: navigationView.updatePointer(bearing:))
+            .subscribe(onNext: navigationView.set(destinationHeading:))
             .addDisposableTo(disposeBag)
 
         navigator.currentLocation
-            .filter { $0 != nil }
-            .map { $0! }
-            .subscribe(onNext: navigationView.updateLocation)
+            .subscribe(onNext: navigationView.set(location:))
             .addDisposableTo(disposeBag)
 
-        navigator.speed.asObservable().map { max($0, 0) } .map { "\($0/1000) km/h" }
+        navigator.speed.map { "\($0/1000) km/h" }
             .bindTo(navigationView.speedLabel.rx.text)
             .addDisposableTo(disposeBag)
     }

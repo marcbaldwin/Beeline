@@ -12,7 +12,7 @@ class NavigationView: UIView {
 
     let mapView = MKMapView()
 
-    let pointerView = TriangleView(color: .neonBlue)
+    let destinationPointerView = TriangleView(color: .neonBlue)
     let northPointerView = TriangleView(color: .white)
 
     lazy var northLabel: UILabel = {
@@ -35,6 +35,7 @@ class NavigationView: UIView {
         return (min(bounds.width, bounds.height) / 2) - 40
     }
 
+    let destinationPointerSize = CGSize(width: 60, height: 30)
     let northPointerSize = CGSize(width: 40, height: 20)
     let span: CLLocationDegrees = 0.025
 
@@ -42,7 +43,7 @@ class NavigationView: UIView {
         super.init(frame: frame)
         addSubview(northLabel)
         addSubview(speedLabel)
-        addSubview(pointerView)
+        addSubview(destinationPointerView)
         addSubview(northPointerView)
         addSubview(circleView)
         circleView.addSubview(mapView)
@@ -57,42 +58,43 @@ class NavigationView: UIView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
+        // TODO: Use Layout Constraints
         circleView.frame = CGRect(x: bounds.midX - radius, y: bounds.midY - radius, width: radius*2, height: radius*2)
         circleView.layer.cornerRadius = radius
         mapView.frame = circleView.bounds
 
-        northPointerView.bounds = CGRect(x: 0, y: 0, width: northPointerSize.width, height: northPointerSize.height)
+        northPointerView.bounds = CGRect(origin: .zero, size: northPointerSize)
         northPointerView.center = CGPoint(x: 50, y: 50)
-        northLabel.bounds = CGRect(x: 0, y: 0, width: 50, height: 50)
+        northLabel.bounds = CGRect(origin: .zero, size: CGSize(width: 50, height: 50))
         northLabel.center = CGPoint(x: 50, y: 80)
 
-        pointerView.bounds = CGRect(x: 0, y: 0, width: 60, height: 30)
-        pointerView.center = center
-        pointerView.layer.anchorPoint = CGPoint(x: 0.5, y: 1)
+        destinationPointerView.bounds = CGRect(origin: .zero, size: destinationPointerSize)
+        destinationPointerView.center = center
+        destinationPointerView.layer.anchorPoint = CGPoint(x: 0.5, y: 1)
 
         speedLabel.bounds = CGRect(x: 0, y: 0, width: 100, height: 100)
         speedLabel.center = CGPoint(x: center.x, y: bounds.height - 50)
     }
 
-    func updateLocation(_ location: CLLocationCoordinate2D) {
+    func set(location: CLLocationCoordinate2D) {
         let region = MKCoordinateRegion(center: location, span: MKCoordinateSpan(latitudeDelta: span, longitudeDelta: span))
         mapView.setRegion(region, animated: true)
     }
 
-    func updatePointer(bearing: Double) {
-        animate(view: pointerView, bearing: bearing)
+    func set(destinationHeading heading: Double) {
+        animate(view: destinationPointerView, heading: heading)
     }
 
-    func updateNorthPointer(bearing: Double) {
-        northPointerView.transform = CGAffineTransform.identity.rotated(by: CGFloat(bearing).toRadians())
+    func set(northHeading heading: Double) {
+        northPointerView.transform = CGAffineTransform.identity.rotated(by: CGFloat(heading).toRadians())
     }
 
-    private func animate(view: UIView, bearing: Double, offset: CGFloat = 0) {
-        let absBearing = abs(bearing)
-        let delta = absBearing > 180 ? 360 - absBearing : absBearing
+    private func animate(view: UIView, heading: Double, offset: CGFloat = 0) {
+        let absHeading = abs(heading)
+        let delta = absHeading > 180 ? 360 - absHeading : absHeading
         let scale = pow(((360 - delta) / 360), 2)
         view.transform = CGAffineTransform.identity
-            .rotated(by: CGFloat(bearing).toRadians())
+            .rotated(by: CGFloat(heading).toRadians())
             .translatedBy(x: 0, y: -radius + 2)
             .scaledBy(x: CGFloat(scale), y: CGFloat(scale))
     }

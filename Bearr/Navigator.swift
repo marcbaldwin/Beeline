@@ -4,18 +4,25 @@ import RxSwift
 class Navigator: NSObject {
 
     fileprivate let locationManager = CLLocationManager()
-    fileprivate let destinationBearing = BehaviorSubject<CLLocationDirection>(value: 0)
+    fileprivate let magneticHeadingSubject = BehaviorSubject<CLLocationDirection>(value: 0)
+    fileprivate let destinationHeadingSubject = BehaviorSubject<CLLocationDirection>(value: 0)
+    fileprivate let currentLocationSubject = BehaviorSubject<CLLocationCoordinate2D?>(value: nil)
+    fileprivate let speedSubject = BehaviorSubject<CLLocationSpeed>(value: 0)
 
-    let magneticHeading = BehaviorSubject<CLLocationDirection>(value: 0)
-    let destinationHeading: Observable<CLLocationDirection>
-    let currentLocation = BehaviorSubject<CLLocationCoordinate2D?>(value: nil)
-    let speed = BehaviorSubject<CLLocationSpeed>(value: 0)
+    var magneticHeading: Observable<CLLocationDirection> {
+        return magneticHeadingSubject.asObserver()
+    }
+    var destinationHeading: Observable<CLLocationDirection> {
+        return Observable.combineLatest(magneticHeadingSubject, destinationHeadingSubject) { $0 + $1 }
+    }
+    var currentLocation: Observable<CLLocationCoordinate2D> {
+        return currentLocationSubject.asObservable().filter { $0 != nil } .map { $0! }
+    }
+    var speed: Observable<CLLocationSpeed> {
+        return speedSubject.asObservable().map { max($0, 0) }
+    }
 
     fileprivate var destination: CLLocation = CLLocation(latitude: 50.750142, longitude: -1.806269)
-
-    override init() {
-        destinationHeading = Observable.combineLatest(magneticHeading, destinationBearing) { $0 + $1 }
-    }
 
     func start() {
         locationManager.delegate = self
@@ -38,14 +45,14 @@ class Navigator: NSObject {
 extension Navigator: CLLocationManagerDelegate {
 
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
-        magneticHeading.onNext(-newHeading.magneticHeading)
+        magneticHeadingSubject.onNext(-newHeading.magneticHeading)
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let currentLocation = locations.last {
-            self.currentLocation.onNext(currentLocation.coordinate)
-            speed.onNext(currentLocation.speed)
-            destinationBearing.onNext(bearing(fromLocation: currentLocation, toLocation: destination))
+            currentLocationSubject.onNext(currentLocation.coordinate)
+            speedSubject.onNext(currentLocation.speed)
+            destinationHeadingSubject.onNext(bearing(fromLocation: currentLocation, toLocation: destination))
         }
     }
 
@@ -57,12 +64,10 @@ extension Navigator: CLLocationManagerDelegate {
 }
 
 func bearing(fromLocation: CLLocation, toLocation: CLLocation) -> CLLocationDirection {
-
     let fromLat = fromLocation.coordinate.latitude.toRadians()
     let fromLon = fromLocation.coordinate.longitude.toRadians()
     let toLat = toLocation.coordinate.latitude.toRadians()
     let toLon = toLocation.coordinate.longitude.toRadians()
-
     let y = sin(toLon - fromLon) * cos(toLat)
     let x = cos(fromLat) * sin(toLat) - sin(fromLat) * cos(toLat) * cos(toLon - fromLon)
     return abs( atan2(y, x).toDegrees().remainder(dividingBy: 360) )
